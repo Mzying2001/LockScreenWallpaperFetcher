@@ -51,6 +51,12 @@ namespace Fetcher
         private void ListBox_files_SelectedIndexChanged(object sender, EventArgs e)
         {
             Image img;
+
+            if (pictureBox_view.Image != null)
+            {
+                pictureBox_view.Image.Dispose();
+            }
+
             try
             {
                 if (listBox_files.SelectedIndex == -1)
@@ -69,6 +75,7 @@ namespace Fetcher
                 panel_buttons.Enabled = false;
                 img = pictureBox_view.ErrorImage;
             }
+
             if (img.Width < pictureBox_view.ClientSize.Width && img.Height < pictureBox_view.ClientSize.Height)
             {
                 pictureBox_view.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -77,6 +84,7 @@ namespace Fetcher
             {
                 pictureBox_view.SizeMode = PictureBoxSizeMode.Zoom;
             }
+
             pictureBox_view.Image = img;
         }
 
