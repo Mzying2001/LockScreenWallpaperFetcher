@@ -14,7 +14,7 @@ namespace Fetcher
     public partial class Form_main : Form
     {
 
-
+        readonly List<string> delete_list = new List<string>();
         readonly string PATH = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) +
                                 @"\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets\";
         string Path_source
@@ -46,6 +46,21 @@ namespace Fetcher
             }
             button_saveall.Enabled = listBox_files.Items.Count > 0;
             ListBox_files_SelectedIndexChanged(null, null);
+        }
+
+        private void Form_main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            foreach (string tmp in delete_list)
+            {
+                try
+                {
+                    File.Delete(tmp);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(string.Format("Unable to delete temp file \"{0}\"", tmp), "Error");
+                }
+            }
         }
 
         private void ListBox_files_SelectedIndexChanged(object sender, EventArgs e)
@@ -90,8 +105,19 @@ namespace Fetcher
 
         private void Button_open_Click(object sender, EventArgs e)
         {
-            File.Copy(Path_source, Path_temp, true);
-            Process.Start(Path_temp);
+            try
+            {
+                File.Copy(Path_source, Path_temp, true);
+                if (!delete_list.Contains(Path_temp))
+                {
+                    delete_list.Add(Path_temp);
+                }
+                Process.Start(Path_temp);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
         private void Button_save_Click(object sender, EventArgs e)
