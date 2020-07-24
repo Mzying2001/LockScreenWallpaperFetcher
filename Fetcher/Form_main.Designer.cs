@@ -48,6 +48,7 @@
             this.listBox_files.Size = new System.Drawing.Size(120, 337);
             this.listBox_files.TabIndex = 0;
             this.listBox_files.SelectedIndexChanged += new System.EventHandler(this.ListBox_files_SelectedIndexChanged);
+            this.listBox_files.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBox_files_MouseDoubleClick);
             // 
             // pictureBox_view
             // 

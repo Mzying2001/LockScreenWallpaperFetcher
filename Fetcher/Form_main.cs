@@ -170,5 +170,13 @@ namespace Fetcher
                 }
             }
         }
+
+        private void ListBox_files_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listBox_files.IndexFromPoint(e.Location) != -1)
+            {
+                Button_open_Click(null, null);
+            }
+        }
     }
 }
