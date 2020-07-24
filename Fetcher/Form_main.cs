@@ -129,8 +129,15 @@ namespace Fetcher
             };
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                File.Copy(Path_source, sfd.FileName);
-                MessageBox.Show(string.Format("Saved wallpaper to \"{0}\"", sfd.FileName));
+                try
+                {
+                    File.Copy(Path_source, sfd.FileName, true);
+                    MessageBox.Show(string.Format("Saved wallpaper to \"{0}\"", sfd.FileName), "Message");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error");
+                }
             }
         }
 
@@ -138,22 +145,29 @@ namespace Fetcher
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog
             {
-                Description = "Select save path",
+                Description = "Select output path",
             };
             if (fbd.ShowDialog() == DialogResult.OK)
             {
-                string path_output = fbd.SelectedPath + @"\Wallpaper";
-                for (int i = 1; Directory.Exists(path_output); i++)
+                try
                 {
-                    path_output = fbd.SelectedPath + @"\Wallpaper_" + i.ToString();
+                    string path_output = fbd.SelectedPath + @"\Wallpaper";
+                    for (int i = 1; Directory.Exists(path_output); i++)
+                    {
+                        path_output = fbd.SelectedPath + @"\Wallpaper_" + i.ToString();
+                    }
+                    Directory.CreateDirectory(path_output);
+                    foreach (string tmp in Directory.GetFiles(PATH))
+                    {
+                        string filename = tmp.Substring(tmp.LastIndexOf("\\") + 1);
+                        File.Copy(tmp, string.Format(@"{0}\{1}.jpg", path_output, filename));
+                    }
+                    MessageBox.Show(string.Format("Saved all wallpaper to \"{0}\"", path_output), "Message");
                 }
-                Directory.CreateDirectory(path_output);
-                foreach (string tmp in Directory.GetFiles(PATH))
+                catch (Exception ex)
                 {
-                    string filename = tmp.Substring(tmp.LastIndexOf("\\") + 1);
-                    File.Copy(tmp, string.Format(@"{0}\{1}.jpg", path_output, filename));
+                    MessageBox.Show(ex.Message, "Error");
                 }
-                MessageBox.Show(string.Format("Saved all wallpaper to \"{0}\"", path_output));
             }
         }
     }
