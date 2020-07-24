@@ -31,9 +31,9 @@
             this.listBox_files = new System.Windows.Forms.ListBox();
             this.pictureBox_view = new System.Windows.Forms.PictureBox();
             this.panel_buttons = new System.Windows.Forms.Panel();
-            this.button_saveall = new System.Windows.Forms.Button();
             this.button_save = new System.Windows.Forms.Button();
             this.button_open = new System.Windows.Forms.Button();
+            this.button_saveall = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_view)).BeginInit();
             this.panel_buttons.SuspendLayout();
             this.SuspendLayout();
@@ -67,16 +67,6 @@
             this.panel_buttons.Size = new System.Drawing.Size(353, 23);
             this.panel_buttons.TabIndex = 3;
             // 
-            // button_saveall
-            // 
-            this.button_saveall.Location = new System.Drawing.Point(138, 326);
-            this.button_saveall.Name = "button_saveall";
-            this.button_saveall.Size = new System.Drawing.Size(75, 23);
-            this.button_saveall.TabIndex = 2;
-            this.button_saveall.Text = "save all";
-            this.button_saveall.UseVisualStyleBackColor = true;
-            this.button_saveall.Click += new System.EventHandler(this.Button_saveall_Click);
-            // 
             // button_save
             // 
             this.button_save.Location = new System.Drawing.Point(278, 0);
@@ -97,6 +87,16 @@
             this.button_open.UseVisualStyleBackColor = true;
             this.button_open.Click += new System.EventHandler(this.Button_open_Click);
             // 
+            // button_saveall
+            // 
+            this.button_saveall.Location = new System.Drawing.Point(138, 326);
+            this.button_saveall.Name = "button_saveall";
+            this.button_saveall.Size = new System.Drawing.Size(75, 23);
+            this.button_saveall.TabIndex = 2;
+            this.button_saveall.Text = "save all";
+            this.button_saveall.UseVisualStyleBackColor = true;
+            this.button_saveall.Click += new System.EventHandler(this.Button_saveall_Click);
+            // 
             // Form_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -110,6 +110,7 @@
             this.MaximizeBox = false;
             this.Name = "Form_main";
             this.Text = "Lock Screen Wallpaper Fetcher";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_main_FormClosed);
             this.Load += new System.EventHandler(this.Form_main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_view)).EndInit();
             this.panel_buttons.ResumeLayout(false);
