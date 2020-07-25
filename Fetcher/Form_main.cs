@@ -78,17 +78,20 @@ namespace Fetcher
                 {
                     panel_buttons.Enabled = false;
                     img = pictureBox_view.InitialImage;
+                    groupBox_picture.Text = string.Format("Fetched {0} wallpaper(s)", listBox_files.Items.Count);
                 }
                 else
                 {
                     panel_buttons.Enabled = true;
                     img = Image.FromFile(Path_source);
+                    groupBox_picture.Text = listBox_files.SelectedItem.ToString();
                 }
             }
             catch (Exception)
             {
                 panel_buttons.Enabled = false;
                 img = pictureBox_view.ErrorImage;
+                groupBox_picture.Text = "ERROR";
             }
 
             if (img.Width < pictureBox_view.ClientSize.Width && img.Height < pictureBox_view.ClientSize.Height)
