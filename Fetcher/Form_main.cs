@@ -173,7 +173,8 @@ namespace Fetcher
 
         private void ListBox_files_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (listBox_files.IndexFromPoint(e.Location) != -1)
+            int index = listBox_files.IndexFromPoint(e.Location);
+            if (index != -1 && index == listBox_files.SelectedIndex)
             {
                 Button_open_Click(null, null);
             }
