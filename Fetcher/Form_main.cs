@@ -91,6 +91,7 @@ namespace Fetcher
             {//no wallpaper fetched
                 groupBox_picture.Text = "No wallpaper fetched";
                 pictureBox_view.Image = pictureBox_view.ErrorImage;
+                pictureBox_view.SizeMode = PictureBoxSizeMode.CenterImage;
                 foreach (Control tmp in Controls)
                 {
                     tmp.Enabled = false;
