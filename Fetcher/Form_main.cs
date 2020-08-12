@@ -14,21 +14,32 @@ namespace Fetcher
     public partial class Form_main : Form
     {
 
+        /*temp files to be deleted when exit the program*/
         readonly List<string> delete_list = new List<string>();
-        readonly string PATH = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) +
-                                @"\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets\";
+
+        /*dictionary of the wallpaper file path*/
+        readonly Dictionary<string, string> dic = new Dictionary<string, string>();
+
+        /*path that save the lock screen wallpaper on windows10*/
+        readonly string path_wallpapers = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) +
+                                          @"\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets\";
+
         string Path_source
         {
             get
             {
-                return PATH + listBox_files.SelectedItem;
+                return dic[listBox_files.SelectedItem.ToString()];
             }
         }
         string Path_temp
         {
             get
             {
-                return Path.GetTempPath() + listBox_files.SelectedItem + ".jpg";
+                string tmp;
+                tmp = dic[listBox_files.SelectedItem.ToString()];
+                tmp = tmp.Substring(tmp.LastIndexOf('\\') + 1);
+
+                return Path.GetTempPath() + tmp + ".jpg";
             }
         }
 
@@ -40,9 +51,34 @@ namespace Fetcher
 
         private void Form_main_Load(object sender, EventArgs e)
         {
-            foreach (string tmp in Directory.GetFiles(PATH))
+            if (Directory.Exists(path_wallpapers))
             {
-                listBox_files.Items.Add(tmp.Substring(tmp.LastIndexOf("\\") + 1));
+                int ignore = 0; //num of ignored items
+                string[] files = Directory.GetFiles(path_wallpapers);
+                for(int i = 0; i < files.Length; i++)
+                {
+                    try
+                    {
+                        Image img = Image.FromFile(files[i]);
+                        if (img.Width < 100 || img.Height < 100)
+                        {
+                            throw new Exception();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        ignore++;
+                        continue;
+                    }
+
+                    string tmp = string.Format("wallpaper - {0}", i - ignore + 1);
+                    dic.Add(tmp, files[i]);
+                    listBox_files.Items.Add(tmp);
+                }
+            }
+            else
+            {
+                MessageBox.Show(string.Format("Unable to find path \"{0}\"", path_wallpapers), "Error");
             }
             button_saveall.Enabled = listBox_files.Items.Count > 0;
             ListBox_files_SelectedIndexChanged(null, null);
@@ -78,13 +114,14 @@ namespace Fetcher
                 {
                     panel_buttons.Enabled = false;
                     img = pictureBox_view.InitialImage;
-                    groupBox_picture.Text = string.Format("Fetched {0} wallpaper(s)", listBox_files.Items.Count);
+                    groupBox_picture.Text = string.Format("fetched {0} wallpaper", listBox_files.Items.Count);
+                    groupBox_picture.Text += listBox_files.Items.Count > 1 ? "s" : null;
                 }
                 else
                 {
                     panel_buttons.Enabled = true;
                     img = Image.FromFile(Path_source);
-                    groupBox_picture.Text = listBox_files.SelectedItem.ToString();
+                    groupBox_picture.Text = string.Format("item {0} of {1}", listBox_files.SelectedIndex + 1, listBox_files.Items.Count);
                 }
             }
             catch (Exception)
@@ -155,15 +192,15 @@ namespace Fetcher
                 try
                 {
                     string path_output = fbd.SelectedPath + @"\Wallpaper";
-                    for (int i = 1; Directory.Exists(path_output); i++)
+                    for (int i = 2; Directory.Exists(path_output); i++)
                     {
-                        path_output = fbd.SelectedPath + @"\Wallpaper_" + i.ToString();
+                        path_output = string.Format("{0}\\Wallpaper ({1})", fbd.SelectedPath, i);
                     }
                     Directory.CreateDirectory(path_output);
-                    foreach (string tmp in Directory.GetFiles(PATH))
+                    foreach(var tmp in listBox_files.Items)
                     {
-                        string filename = tmp.Substring(tmp.LastIndexOf("\\") + 1);
-                        File.Copy(tmp, string.Format(@"{0}\{1}.jpg", path_output, filename));
+                        string filename = tmp.ToString();
+                        File.Copy(dic[filename], string.Format(@"{0}\{1}.jpg", path_output, filename));
                     }
                     MessageBox.Show(string.Format("Saved all wallpaper to \"{0}\"", path_output), "Message");
                 }
