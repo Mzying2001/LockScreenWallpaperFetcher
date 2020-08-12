@@ -64,6 +64,7 @@ namespace Fetcher
                         {
                             throw new Exception();
                         }
+                        img.Dispose();
                     }
                     catch (Exception)
                     {
