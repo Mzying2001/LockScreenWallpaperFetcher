@@ -30,13 +30,11 @@
         {
             this.listBox_files = new System.Windows.Forms.ListBox();
             this.pictureBox_view = new System.Windows.Forms.PictureBox();
-            this.panel_buttons = new System.Windows.Forms.Panel();
             this.button_save = new System.Windows.Forms.Button();
             this.button_open = new System.Windows.Forms.Button();
             this.button_saveall = new System.Windows.Forms.Button();
             this.groupBox_picture = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_view)).BeginInit();
-            this.panel_buttons.SuspendLayout();
             this.groupBox_picture.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,23 +60,14 @@
             this.pictureBox_view.Location = new System.Drawing.Point(6, 20);
             this.pictureBox_view.Name = "pictureBox_view";
             this.pictureBox_view.Size = new System.Drawing.Size(422, 282);
+            this.pictureBox_view.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_view.TabIndex = 1;
             this.pictureBox_view.TabStop = false;
-            // 
-            // panel_buttons
-            // 
-            this.panel_buttons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_buttons.Controls.Add(this.button_save);
-            this.panel_buttons.Controls.Add(this.button_open);
-            this.panel_buttons.Location = new System.Drawing.Point(392, 326);
-            this.panel_buttons.Name = "panel_buttons";
-            this.panel_buttons.Size = new System.Drawing.Size(180, 23);
-            this.panel_buttons.TabIndex = 3;
             // 
             // button_save
             // 
             this.button_save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_save.Location = new System.Drawing.Point(105, 0);
+            this.button_save.Location = new System.Drawing.Point(497, 326);
             this.button_save.Name = "button_save";
             this.button_save.Size = new System.Drawing.Size(75, 23);
             this.button_save.TabIndex = 1;
@@ -89,7 +78,7 @@
             // button_open
             // 
             this.button_open.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_open.Location = new System.Drawing.Point(24, 0);
+            this.button_open.Location = new System.Drawing.Point(416, 326);
             this.button_open.Name = "button_open";
             this.button_open.Size = new System.Drawing.Size(75, 23);
             this.button_open.TabIndex = 0;
@@ -126,9 +115,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Controls.Add(this.button_save);
             this.Controls.Add(this.groupBox_picture);
+            this.Controls.Add(this.button_open);
             this.Controls.Add(this.button_saveall);
-            this.Controls.Add(this.panel_buttons);
             this.Controls.Add(this.listBox_files);
             this.MinimumSize = new System.Drawing.Size(450, 300);
             this.Name = "Form_main";
@@ -137,7 +127,6 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_main_FormClosed);
             this.Load += new System.EventHandler(this.Form_main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_view)).EndInit();
-            this.panel_buttons.ResumeLayout(false);
             this.groupBox_picture.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -147,7 +136,6 @@
 
         private System.Windows.Forms.ListBox listBox_files;
         private System.Windows.Forms.PictureBox pictureBox_view;
-        private System.Windows.Forms.Panel panel_buttons;
         private System.Windows.Forms.Button button_save;
         private System.Windows.Forms.Button button_open;
         private System.Windows.Forms.Button button_saveall;

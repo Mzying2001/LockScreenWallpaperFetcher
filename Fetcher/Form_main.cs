@@ -80,8 +80,20 @@ namespace Fetcher
             {
                 MessageBox.Show(string.Format("Unable to find path \"{0}\"", path_wallpapers), "Error");
             }
-            button_saveall.Enabled = listBox_files.Items.Count > 0;
-            ListBox_files_SelectedIndexChanged(null, null);
+
+            if (listBox_files.Items.Count > 0)
+            {//fetched wallpapers successfully
+                listBox_files.SelectedIndex = 0;
+                ListBox_files_SelectedIndexChanged(null, null);
+            }
+            else
+            {//no wallpaper fetched
+                MessageBox.Show("No wallpaper fetched", "Message");
+                foreach(Control tmp in Controls)
+                {
+                    tmp.Enabled = false;
+                }
+            }
         }
 
         private void Form_main_FormClosed(object sender, FormClosedEventArgs e)
@@ -101,46 +113,12 @@ namespace Fetcher
 
         private void ListBox_files_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Image img;
-
             if (pictureBox_view.Image != null)
             {
                 pictureBox_view.Image.Dispose();
             }
-
-            try
-            {
-                if (listBox_files.SelectedIndex == -1)
-                {
-                    panel_buttons.Enabled = false;
-                    img = pictureBox_view.InitialImage;
-                    groupBox_picture.Text = string.Format("fetched {0} wallpaper", listBox_files.Items.Count);
-                    groupBox_picture.Text += listBox_files.Items.Count > 1 ? "s" : null;
-                }
-                else
-                {
-                    panel_buttons.Enabled = true;
-                    img = Image.FromFile(Path_source);
-                    groupBox_picture.Text = string.Format("item {0} of {1}", listBox_files.SelectedIndex + 1, listBox_files.Items.Count);
-                }
-            }
-            catch (Exception)
-            {
-                panel_buttons.Enabled = false;
-                img = pictureBox_view.ErrorImage;
-                groupBox_picture.Text = "ERROR";
-            }
-
-            if (img.Width < pictureBox_view.ClientSize.Width && img.Height < pictureBox_view.ClientSize.Height)
-            {
-                pictureBox_view.SizeMode = PictureBoxSizeMode.CenterImage;
-            }
-            else
-            {
-                pictureBox_view.SizeMode = PictureBoxSizeMode.Zoom;
-            }
-
-            pictureBox_view.Image = img;
+            pictureBox_view.Image = Image.FromFile(Path_source);
+            groupBox_picture.Text = string.Format("item {0} of {1}", listBox_files.SelectedIndex + 1, listBox_files.Items.Count);
         }
 
         private void Button_open_Click(object sender, EventArgs e)
