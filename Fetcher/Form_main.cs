@@ -89,8 +89,9 @@ namespace Fetcher
             }
             else
             {//no wallpaper fetched
-                MessageBox.Show("No wallpaper fetched", "Message");
-                foreach(Control tmp in Controls)
+                groupBox_picture.Text = "No wallpaper fetched";
+                pictureBox_view.Image = pictureBox_view.ErrorImage;
+                foreach (Control tmp in Controls)
                 {
                     tmp.Enabled = false;
                 }
