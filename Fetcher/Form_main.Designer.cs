@@ -28,29 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox_files = new System.Windows.Forms.ListBox();
             this.pictureBox_view = new System.Windows.Forms.PictureBox();
             this.button_save = new System.Windows.Forms.Button();
             this.button_open = new System.Windows.Forms.Button();
             this.button_saveall = new System.Windows.Forms.Button();
             this.groupBox_picture = new System.Windows.Forms.GroupBox();
+            this.listBox_files = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_view)).BeginInit();
             this.groupBox_picture.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // listBox_files
-            // 
-            this.listBox_files.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.listBox_files.FormattingEnabled = true;
-            this.listBox_files.IntegralHeight = false;
-            this.listBox_files.ItemHeight = 12;
-            this.listBox_files.Location = new System.Drawing.Point(12, 12);
-            this.listBox_files.Name = "listBox_files";
-            this.listBox_files.Size = new System.Drawing.Size(120, 337);
-            this.listBox_files.TabIndex = 0;
-            this.listBox_files.SelectedIndexChanged += new System.EventHandler(this.ListBox_files_SelectedIndexChanged);
-            this.listBox_files.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBox_files_MouseDoubleClick);
             // 
             // pictureBox_view
             // 
@@ -110,16 +96,30 @@
             this.groupBox_picture.TabStop = false;
             this.groupBox_picture.Text = "groupBox";
             // 
+            // listBox_files
+            // 
+            this.listBox_files.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listBox_files.FormattingEnabled = true;
+            this.listBox_files.IntegralHeight = false;
+            this.listBox_files.ItemHeight = 12;
+            this.listBox_files.Location = new System.Drawing.Point(12, 12);
+            this.listBox_files.Name = "listBox_files";
+            this.listBox_files.Size = new System.Drawing.Size(120, 337);
+            this.listBox_files.TabIndex = 0;
+            this.listBox_files.SelectedIndexChanged += new System.EventHandler(this.ListBox_files_SelectedIndexChanged);
+            this.listBox_files.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBox_files_MouseDoubleClick);
+            // 
             // Form_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Controls.Add(this.listBox_files);
             this.Controls.Add(this.button_save);
             this.Controls.Add(this.groupBox_picture);
             this.Controls.Add(this.button_open);
             this.Controls.Add(this.button_saveall);
-            this.Controls.Add(this.listBox_files);
             this.MinimumSize = new System.Drawing.Size(450, 300);
             this.Name = "Form_main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -133,13 +133,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox listBox_files;
         private System.Windows.Forms.PictureBox pictureBox_view;
         private System.Windows.Forms.Button button_save;
         private System.Windows.Forms.Button button_open;
         private System.Windows.Forms.Button button_saveall;
         private System.Windows.Forms.GroupBox groupBox_picture;
+        private System.Windows.Forms.ListBox listBox_files;
     }
 }
 
